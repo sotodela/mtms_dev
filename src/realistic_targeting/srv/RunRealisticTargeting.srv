@@ -1,0 +1,43 @@
+# Flattened E-field array. Expected layout:
+#   efields[coil_index, point_index, component_index]
+# flattened in row-major order as coil-major, then point-major.
+float64[] efields
+int32 num_coils
+int32 num_points
+int32 efield_components
+
+# Optional identifiers for the coil positions that generated each E-field.
+string[] coil_ids
+
+# Target mesh point indices into the E-field points.
+# If empty, the first num_targets points are used.
+int32[] target_indices
+
+# Target directions flattened as [x0, y0, z0, x1, y1, z1, ...].
+float64[] target_directions
+
+# Optional target positions flattened as [x0, y0, z0, ...].
+# This first service version does not use positions for optimization, but keeps
+# the request shape aligned with the plugin payload.
+float64[] target_positions
+
+# Small Tikhonov regularization term for the least-squares solve.
+float64 regularization
+
+# If true, negative weights are clipped to zero after solving.
+bool nonnegative
+---
+bool success
+string message
+
+# One weight per coil position / E-field.
+float64[] weights
+
+# Index of the largest returned weight.
+int32 best_coil_index
+
+# Relative residual norm. Lower is better.
+float64 score
+
+# Achieved target fields flattened as [x0, y0, z0, ...].
+float64[] achieved_fields

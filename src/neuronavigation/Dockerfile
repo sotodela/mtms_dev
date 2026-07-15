@@ -97,6 +97,11 @@ RUN mkdir -p /app/src/neuronavigation/invesalius3/invesalius_rs && \
 RUN PYTHONPATH=/app/src/neuronavigation/invesalius3 python3 -c "import invesalius_rs; from invesalius_rs import _native; print(_native)"
 # Copy and build Neuronavigation ROS package
 COPY src/neuronavigation src/neuronavigation/
+COPY src/realistic_targeting src/realistic_targeting/
+
+RUN source /opt/ros/jazzy/setup.bash && \
+    source /app/install/setup.bash && \
+    colcon build --base-paths src/realistic_targeting --packages-select realistic_targeting
 
 RUN source /opt/ros/jazzy/setup.bash && \
     source /app/install/setup.bash && \

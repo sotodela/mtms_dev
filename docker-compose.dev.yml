@@ -19,10 +19,22 @@ services:
               count: 1
               capabilities: [gpu]
 
+  realistic_targeting:
+    build:
+      context: .
+      dockerfile: src/realistic_targeting/Dockerfile
+    env_file:
+      - ${MTMS_ENV_FILE}
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    network_mode: host
+    tty: true
+
   neuronavigation:
     build:
       context: .
       dockerfile: src/neuronavigation/Dockerfile
+      network: host
     image: neuronavigation
     env_file:
       - ${MTMS_ENV_FILE}
@@ -34,6 +46,7 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - './data/neuronavigation:/app/data/neuronavigation/'
       - './.config/invesalius:/root/.config/invesalius'
+      - './src/neuronavigation/invesalius3/plugins/efield_targeting_area:/root/.config/invesalius/plugins/efield_targeting_area:ro'
     privileged: true
     network_mode: host
     command: python invesalius3/app.py
