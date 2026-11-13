@@ -30,9 +30,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m pip install --break-system-packages \
+    vtk==9.3.0 \
     cython==3.0.10 \
     pyacvd==0.2.11 \
-    pypolaris==0.0.6 \
+    pypolaris==0.1.0 \
+    pydicom==2.4.5 \
+    pynetdicom==2.0.2 \
+    lib3mf==2.3.2 \
     python-socketio \
     scikit-learn
 RUN python3 -m pip install --break-system-packages torch torchvision torchaudio
@@ -95,6 +99,7 @@ RUN mkdir -p /app/src/neuronavigation/invesalius3/invesalius_rs && \
     cp "$NATIVE_SO" /app/src/neuronavigation/invesalius3/invesalius_rs/ && \
     ls -l /app/src/neuronavigation/invesalius3/invesalius_rs/_native*.so
 RUN PYTHONPATH=/app/src/neuronavigation/invesalius3 python3 -c "import invesalius_rs; from invesalius_rs import _native; print(_native)"
+RUN PYTHONPATH=/app/src/neuronavigation/invesalius3 python3 -c "import invesalius.net.dicom; import lib3mf; import pypolaris"
 # Copy and build Neuronavigation ROS package
 COPY src/neuronavigation src/neuronavigation/
 COPY src/realistic_targeting src/realistic_targeting/
@@ -129,8 +134,10 @@ RUN mkdir -p /app/install/neuronavigation/lib/python3.12/site-packages/navigatio
           /app/install/neuronavigation/lib/python3.12/site-packages/navigation/ && \
     ls -l /app/install/neuronavigation/lib/python3.12/site-packages/navigation/objects/magstim_fig8_coil.stl
     
-RUN sed -i 's/vtkIdFilter/vtkGenerateIds/g' \
-    /app/install/neuronavigation/lib/python3.12/site-packages/invesalius/data/polydata_utils.py    
+# Check the installed package after translations and other runtime assets exist.
+RUN cd /tmp && source /opt/ros/jazzy/setup.bash && \
+    source /app/install/setup.bash && \
+    python3 -c "from invesalius.gui.network.host_find_panel import HostFindPanel; from vtkmodules.vtkCommonCore import vtkVersion; from vtkmodules.vtkRenderingCore import vtkRenderer; from vtkmodules.vtkFiltersCore import vtkIdFilter; assert vtkVersion.GetVTKVersion() == '9.3.0'; assert hasattr(vtkRenderer, 'AddActor2D')"
 COPY src/neuronavigation/ros_entrypoint.sh .
 RUN dos2unix ros_entrypoint.sh
 RUN chmod +x ros_entrypoint.sh

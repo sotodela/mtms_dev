@@ -1,10 +1,14 @@
 import os
-from setuptools import find_packages, setup
+from setuptools import find_namespace_packages, find_packages, setup
 
 # Search for InVesalius's internal packages in invesalius3 directory, allowing
 # InVesalius to import them as, e.g., invesalius.gui, instead of invesalius3.invesalius.gui.
 #
 packages = find_packages(where='invesalius3')
+# New InVesalius modules also use namespace packages without __init__.py.
+packages = sorted(set(packages) | set(find_namespace_packages(
+    where='invesalius3', include=['invesalius', 'invesalius.*']
+)))
 package_dir = {s: 'invesalius3/' + s.replace('.', '/') for s in packages}
 
 packages.append('invesalius3')

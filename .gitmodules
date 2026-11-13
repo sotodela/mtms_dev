@@ -1,6 +1,6 @@
 [submodule "src/neuronavigation/invesalius3"]
 	path = src/neuronavigation/invesalius3
-	url = https://github.com/invesalius/invesalius3
+	url = https://github.com/sotodela/invesalius3.git
 [submodule "src/targeting/data"]
         path = src/targeting/data
 	url = https://github.com/connect2brain/targeting-tables.git
