@@ -48,6 +48,8 @@ class RealisticTargetingNode(Node):
                 target_indices=request.target_indices,
                 regularization=request.regularization,
                 nonnegative=request.nonnegative,
+                avoidance_indices=request.avoidance_indices,
+                avoidance_strength=request.avoidance_strength,
             )
         except (TargetingInputError, ValueError) as exc:
             response.success = False
@@ -56,6 +58,8 @@ class RealisticTargetingNode(Node):
             response.score = float("inf")
             return response
 
+        response.avoidance_rms_field = result["avoidance_rms_field"]
+        response.avoidance_max_field = result["avoidance_max_field"]
         response.success = True
         response.message = "ok"
         response.weights = result["weights"].astype(float).tolist()

@@ -26,6 +26,11 @@ float64 regularization
 
 # If true, negative weights are clipped to zero after solving.
 bool nonnegative
+
+# ROI-local mesh samples where the field should be suppressed.
+int32[] avoidance_indices
+# alpha * mean(|E_avoid|^2) is added to the objective; zero disables avoidance.
+float64 avoidance_strength
 ---
 bool success
 string message
@@ -41,3 +46,7 @@ float64 score
 
 # Achieved target fields flattened as [x0, y0, z0, ...].
 float64[] achieved_fields
+
+# Residual field in the avoided samples, in the same units as the E-fields.
+float64 avoidance_rms_field
+float64 avoidance_max_field
