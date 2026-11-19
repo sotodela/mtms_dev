@@ -1,0 +1,43 @@
+{
+  "schema": "mtms.weight_conversion_config.v1",
+  "calibration_file": "REPLACE_WITH_CALIBRATION.mat",
+  "basis_didt_unit": "REPLACE_WITH_A/s_OR_A/us",
+  "waveform_id": "REPLACE_WITH_CALIBRATED_WAVEFORM",
+  "channels": [
+    {
+      "basis_channel_index": 0,
+      "device_channel": 0,
+      "calibration_coil_number": 1,
+      "polarity": 1,
+      "max_voltage_v": 1490
+    },
+    {
+      "basis_channel_index": 1,
+      "device_channel": 1,
+      "calibration_coil_number": 2,
+      "polarity": 1,
+      "max_voltage_v": 1490
+    },
+    {
+      "basis_channel_index": 2,
+      "device_channel": 2,
+      "calibration_coil_number": 3,
+      "polarity": 1,
+      "max_voltage_v": 1490
+    },
+    {
+      "basis_channel_index": 3,
+      "device_channel": 3,
+      "calibration_coil_number": 4,
+      "polarity": 1,
+      "max_voltage_v": 1490
+    },
+    {
+      "basis_channel_index": 4,
+      "device_channel": 4,
+      "calibration_coil_number": 5,
+      "polarity": 1,
+      "max_voltage_v": 1490
+    }
+  ]
+}

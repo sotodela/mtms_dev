@@ -1,0 +1,72 @@
+{
+  "schema": "mtms.weight_conversion_config.v1",
+  "calibration_file": "src/waveform_approximator/waveform_approximator/data/aalto_mk3/calibration.mat",
+  "basis_didt_unit": "A/s",
+  "waveform_id": "aalto_default_monophasic_60us_30us",
+  "channels": [
+    {
+      "basis_channel_index": 0,
+      "device_channel": 0,
+      "calibration_coil_number": 1,
+      "max_voltage_v": 1490
+    },
+    {
+      "basis_channel_index": 1,
+      "device_channel": 1,
+      "calibration_coil_number": 2,
+      "max_voltage_v": 1490
+    },
+    {
+      "basis_channel_index": 2,
+      "device_channel": 2,
+      "calibration_coil_number": 3,
+      "max_voltage_v": 1490
+    },
+    {
+      "basis_channel_index": 3,
+      "device_channel": 3,
+      "calibration_coil_number": 4,
+      "max_voltage_v": 1490
+    },
+    {
+      "basis_channel_index": 4,
+      "device_channel": 4,
+      "calibration_coil_number": 5,
+      "max_voltage_v": 1490
+    }
+  ],
+  "polarity_by_coil_model": {
+    "coilset_5_v230908": [
+      1,
+      -1,
+      -1,
+      -1,
+      -1
+    ],
+    "coilset_5_v251022": [
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+  },
+  "waveform_reference": {
+    "tick_duration_s": 2.5e-08,
+    "phases": [
+      "rising",
+      "hold",
+      "falling"
+    ],
+    "rising_ticks": 2400,
+    "hold_ticks": 1200,
+    "falling_ticks_by_device_channel": [
+      1560,
+      1560,
+      1600,
+      1600,
+      1776
+    ],
+    "source": "sites/aalto/.env and src/waveform_utils/src/get_default_waveform.cpp"
+  }
+}
